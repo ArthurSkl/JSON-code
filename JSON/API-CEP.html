@@ -1,0 +1,85 @@
+
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulte seu Cep (API VIA CEP)</title>
+    <style>
+
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #resultado{
+            padding: 10px;
+            margin-top: 15px;
+            max-width: 400px;
+            background-color: antiquewhite;
+            border: solid black 2px;
+            border-radius: 10px;
+            box-shadow: 2px 2px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <h1>Consulta de Endereço Via CEP !</h1>
+    <label>Digite seu CEP: </label>
+    <input type="number" id="cep">
+    <button onclick="consultaEndereco()">Consultar</button>
+
+    <div id="resultado">
+
+        <p>Endereço correspondente</p>
+
+    </div>
+
+    <script>
+        function consultaEndereco(){
+
+            let cep = document.querySelector("#cep").value;
+            
+
+            if (cep.length !== 8){
+                alert("CEP Invalido ! ")
+                return;
+            }
+
+            let url = `https://viacep.com.br/ws/${cep}/json/`;
+
+            fetch(url).then(function(response){
+                response.json().then(function(data){
+                    console.log(data)
+                    mostarEndereco(data);
+                })
+            });
+
+        }
+
+
+        function mostarEndereco(dados){
+
+            let resultado = document.querySelector('#resultado');
+            if(dados.erro){
+                resultado.innerHTML = "Nao foi possivel localizar endereço!"
+            }else{
+
+
+
+
+            resultado.innerHTML = `<p> Endereço: ${dados.logradouro}</p>
+            <p> Complemento: ${dados.complemento}</p>
+            <p> bairro: ${dados.bairro}</p>
+            <p> cidade: ${dados.localidade}</p>
+            <p> Endereço: ${dados.logradouro} - ${dados.uf}</p> `
+            }
+        }
+
+    </script>
+</body>
+</html>

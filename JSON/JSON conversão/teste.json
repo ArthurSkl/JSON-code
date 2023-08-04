@@ -1,0 +1,13 @@
+{
+    "Nome":"João",
+    "idade":31,
+    "Esta_Trabalhando":true,
+    
+        "Detalhes_Profissao":{
+            "Profissao":"Programador",
+            "Empresa":"Senac",
+            "Salario":"12650"
+        },
+
+    "Hobbies":["programar","correr","ler"]   
+}
